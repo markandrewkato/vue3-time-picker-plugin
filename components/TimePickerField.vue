@@ -1,9 +1,7 @@
 <script setup>
-import { computed, ref, defineProps, defineEmits, onMounted, onUnmounted, toRefs, resolveComponent } from "vue"
+import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from "vue"
 
 let handleOutsideClick
-let excludes = ['timepickerField']
-let closeHandler = 'hidePicker'
 
 defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])
@@ -75,7 +73,7 @@ function hidePicker() {
           {{ (minute - 1).toString().padStart(2, "0") }}
         </option>
       </select>
-      <select class="vue3-time-picker__select" v-model="selectedMeridian" @change="isUpdated = true">
+      <select class="vue3-time-picker__select" style="margin-left: 4px" v-model="selectedMeridian" @change="isUpdated = true">
         <option value="AM">AM</option>
         <option value="PM">PM</option>
       </select>
@@ -83,7 +81,7 @@ function hidePicker() {
   </div>
 </template>
 
-<style scoped>
+<style>
 .vue3-time-picker-container {
   display: inline;
   position: relative;
@@ -91,8 +89,7 @@ function hidePicker() {
 
 .vue3-time-picker {
   position: absolute;
-  height: 30px;
-  bottom: -54px;
+  z-index: 99999;
   left: 0;
   display: block;
   padding: 10px;
@@ -112,7 +109,7 @@ function hidePicker() {
   padding: 6px 10px;
   background: #ffffff;
   cursor: pointer;
-  font-family: 'Tahoma', sans-serif;
+  font-family: 'Verdana', sans-serif;
   color: black;
 }
 </style>

@@ -1,16 +1,19 @@
 {
   "name": "vue3-time-picker-plugin",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.5",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/vue3-time-picker.umd.cjs",
   "module": "./dist/vue3-time-picker.js",
   "exports": {
     ".": {
       "import": "./dist/vue3-time-picker.js",
       "require": "./dist/vue3-time-picker.umd.cjs"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
