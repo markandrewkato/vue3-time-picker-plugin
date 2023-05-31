@@ -3,11 +3,10 @@ import { computed, defineEmits, defineProps, onMounted, onUnmounted, ref } from 
 
 let handleOutsideClick
 
-defineProps(['modelValue'])
+defineProps(['modelValue', 'classes', 'popupClasses'])
 const emit = defineEmits(['update:modelValue'])
 
 onMounted(() => {
-
   handleOutsideClick = (e) => {
     e.stopPropagation()
     let clickedOnExcludedEl = false
@@ -59,8 +58,13 @@ function hidePicker() {
 
 <template>
   <div class="vue3-time-picker-container">
-    <input ref="timepickerField" @focus="showPicker" class="vue3-timepicker" type="text" :value="generatedTime">
-    <div ref="timepickerOptions" class="vue3-time-picker" v-show="showField">
+    <input ref="timepickerField"
+           :class="classes"
+           @focus="showPicker"
+           class="vue3-timepicker"
+           type="text"
+           :value="generatedTime">
+    <div ref="timepickerOptions" class="vue3-time-picker" :class="popupClasses" v-show="showField">
       <select class="vue3-time-picker__select" v-model="selectedHour" @change="isUpdated = true">
         <option :value="hour.toString().padStart(2, '0')" v-for="hour in 12">{{
             hour.toString().padStart(2, "0")
@@ -73,7 +77,9 @@ function hidePicker() {
           {{ (minute - 1).toString().padStart(2, "0") }}
         </option>
       </select>
-      <select class="vue3-time-picker__select" style="margin-left: 4px" v-model="selectedMeridian" @change="isUpdated = true">
+      <select class="vue3-time-picker__select"
+              v-model="selectedMeridian"
+              @change="isUpdated = true">
         <option value="AM">AM</option>
         <option value="PM">PM</option>
       </select>
@@ -81,7 +87,7 @@ function hidePicker() {
   </div>
 </template>
 
-<style>
+<style scoped>
 .vue3-time-picker-container {
   display: inline;
   position: relative;
@@ -92,7 +98,7 @@ function hidePicker() {
   z-index: 99999;
   left: 0;
   display: block;
-  padding: 10px;
+  padding: 6px;
   background: #eee;
   border-radius: 6px;
   color: black;
