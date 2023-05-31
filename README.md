@@ -4,6 +4,7 @@ Simple, clean and easy to use time picker for Vue 3.
 
 - Lightweight
 - No dependencies
+- More features coming soon
 
 ## Donations
 
@@ -42,3 +43,7 @@ You can now use the component like so:
 ## Preview
 
 [![demo](https://raw.githubusercontent.com/markandrewkato/vue3-time-picker-plugin/main/demo.gif)](https://github.com/markandrewkato/vue3-time-picker-plugin)
+
+## Inspired by
+
+https://www.youtube.com/watch?v=97lSkxy7Wjk
