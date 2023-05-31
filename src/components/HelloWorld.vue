@@ -12,7 +12,7 @@ let time = ref('7:30 AM')
 <template>
   <h1>{{ time }}</h1>
 
-  <vue3-time-picker v-model="time" />
+  <Vue3TimePicker v-model="time" />
 
 <!--  <vue-timepicker v-model="time2" />-->
 

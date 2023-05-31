@@ -35,7 +35,7 @@ createApp(App)
 You can now use the component like so:
 
 ```
-<vue3-time-picker v-model="time" />
+<Vue3TimePicker v-model="time" />
 ```
 
 ## Documentation
@@ -50,7 +50,7 @@ You can now use the component like so:
 
 ## Donations
 
-If it has saved you development time, feel free to donate. Any amount is appreciated.
+If it has saved you development time, feel free to donate.
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?business=TLMQT3BQAYJQW&no_recurring=0&currency_code=USD)
 
