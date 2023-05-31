@@ -6,12 +6,11 @@ defineProps({
 })
 
 const count = ref(0)
-let time = ref(null)
-let time2 = ref(null)
+let time = ref('7:30 AM')
 </script>
 
 <template>
-  <h1>{{ time }} {{ time2 }}</h1>
+  <h1>{{ time }}</h1>
 
   <vue3-time-picker v-model="time" />
 
