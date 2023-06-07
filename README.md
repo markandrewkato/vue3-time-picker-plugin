@@ -40,6 +40,10 @@ You can now use the component like so:
 
 ## Documentation
 
+### Clearing input
+
+Press backspace or delete to clear the input
+
 ### Available Props
 
 | Prop         | Type           | Description                   |
@@ -50,7 +54,7 @@ You can now use the component like so:
 
 ## Donations
 
-If it has saved you development time, feel free to donate.
+If it has saved you development time, you can buy me a cup of coffee. :)
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?business=TLMQT3BQAYJQW&no_recurring=0&currency_code=USD)
 

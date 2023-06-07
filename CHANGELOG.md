@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.11] - 2023-06-08
+
+### Added
+
+- Ability to clear input field data
+
+### Fixed
+
+- Value not updating when bound data is updated
+
 ## [1.0.10] - 2023-06-01
 
 ### Changed
@@ -32,7 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add "Inspired by" on README
 
-[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.10...HEAD
+[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.11...HEAD
+[1.0.11]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.10...v1.0.11
 [1.0.10]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.9...v1.0.10
 [1.0.9]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.7...v1.0.8

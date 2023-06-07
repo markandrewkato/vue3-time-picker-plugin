@@ -1,12 +1,11 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue"
+import { onMounted, onUnmounted, ref, watch } from "vue"
 
 let handleOutsideClick
 
 const props = defineProps(['modelValue', 'classes', 'popupClasses'])
 const emit = defineEmits(['update:modelValue'])
 
-let initialLoad = ref(true)
 let showField = ref(false)
 let timepickerField = ref(null)
 let timepickerOptions = ref(null)
@@ -14,42 +13,14 @@ let timepickerOptions = ref(null)
 let selectedHour = ref('01')
 let selectedMinute = ref('00')
 let selectedMeridian = ref('AM')
+let generatedTime = ref('')
 
-let generatedTime = computed({
-  get() {
-    let generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
-    if (initialLoad.value) {
-      initialLoad.value = false
-      let time = parseTime(props.modelValue)
-      if (time) {
-        generated = props.modelValue
-      } else {
-        return ''
-      }
-    }
-
-    emit('update:modelValue', generated)
-
-    return generated
-  }, set(value) {
-    let time = parseTime(value)
-
-    if (!time) {
-      return
-    }
-
-    selectedHour.value = time[1].toString().padStart(2, "0")
-    selectedMinute.value = time[2].toString().padStart(2, "0")
-    selectedMeridian.value = time[3].toString().toUpperCase()
-
-    let generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
-
-    emit('update:modelValue', generated)
-  }
+watch(() => props.modelValue, (newValue) => {
+  setPropsToData(newValue)
 })
 
 onMounted(() => {
-  generatedTime.value = props.modelValue
+  setPropsToData(props.modelValue)
 
   handleOutsideClick = (e) => {
     e.stopPropagation()
@@ -73,6 +44,39 @@ onUnmounted(() => {
   document.removeEventListener('touchstart', handleOutsideClick)
 })
 
+function setPropsToData(value) {
+  let time = parseTime(value)
+  if (!time) {
+    return ''
+  }
+
+  selectedHour.value = time[1].toString().padStart(2, "0")
+  selectedMinute.value = time[2].toString().padStart(2, "0")
+  selectedMeridian.value = time[3].toString().toUpperCase()
+
+  generatedTime.value = value
+}
+
+function generateTime() {
+  let generated = ''
+  if (selectedHour.value && selectedMinute.value && selectedMeridian.value) {
+    generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
+  }
+
+  return generated
+}
+
+function onChangeTime() {
+  generatedTime.value = generateTime()
+  emit('update:modelValue', generatedTime.value)
+}
+
+function clearInput(e) {
+  if (e.key === "Backspace" || e.key === "Delete") {
+    generatedTime.value = ''
+    emit('update:modelValue', generatedTime.value)
+  }
+}
 
 function parseTime(t) {
   if (!t) return null
@@ -94,22 +98,25 @@ function hidePicker() {
            :class="classes"
            @focus="showPicker"
            class="vue3-timepicker"
+           :readonly="true"
            type="text"
+           @keyup.prevent="clearInput"
            :value="generatedTime">
     <div ref="timepickerOptions" class="vue3-time-picker" :class="popupClasses" v-show="showField">
-      <select class="vue3-time-picker__select" v-model="selectedHour">
+      <select class="vue3-time-picker__select" v-model="selectedHour" @change="onChangeTime">
         <option :value="hour.toString().padStart(2, '0')" v-for="hour in 12">{{
             hour.toString().padStart(2, "0")
           }}
         </option>
       </select>
       :
-      <select class="vue3-time-picker__select" v-model="selectedMinute">
+      <select class="vue3-time-picker__select" v-model="selectedMinute" @change="onChangeTime">
         <option :value="(minute - 1).toString().padStart(2, '0')" v-for="minute in 60">
           {{ (minute - 1).toString().padStart(2, "0") }}
         </option>
       </select>
       <select class="vue3-time-picker__select"
+              @change="onChangeTime"
               v-model="selectedMeridian">
         <option value="AM">AM</option>
         <option value="PM">PM</option>
