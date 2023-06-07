@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from "vue"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 
 let handleOutsideClick
 
-const props = defineProps(['modelValue', 'classes', 'popupClasses'])
+const props = defineProps(['modelValue', 'classes', 'popupClasses', 'hourIncrements', 'minuteIncrements'])
 const emit = defineEmits(['update:modelValue'])
 
 let showField = ref(false)
@@ -14,6 +14,28 @@ let selectedHour = ref('01')
 let selectedMinute = ref('00')
 let selectedMeridian = ref('AM')
 let generatedTime = ref('')
+
+const minuteOptions = computed(() => {
+  let increments = props.minuteIncrements ?? 1;
+  let minutes = []
+  for (let i = 0; i < 60; i++) {
+    if (i % increments === 0) {
+      minutes.push(i.toString().padStart(2, '0'))
+    }
+  }
+  return minutes
+})
+
+const hourOptions = computed(() => {
+  let increments = props.hourIncrements ?? 1;
+  let hours = []
+  for (let i = 1; i <= 12; i++) {
+    if (i % increments === 0) {
+      hours.push(i.toString().padStart(2, '0'))
+    }
+  }
+  return hours
+})
 
 watch(() => props.modelValue, (newValue) => {
   setPropsToData(newValue)
@@ -48,11 +70,19 @@ function setPropsToData(value) {
   let time = parseTime(value)
   if (!time) {
     generatedTime.value = ''
-    return;
+    return
   }
 
-  selectedHour.value = time[1].toString().padStart(2, "0")
-  selectedMinute.value = time[2].toString().padStart(2, "0")
+  let hour = time[1].toString().padStart(2, "0");
+  let minute = time[2].toString().padStart(2, "0")
+
+  if (!hourOptions.value.includes(hour) || !minuteOptions.value.includes(minute)) {
+    generatedTime.value = ''
+    return
+  }
+
+  selectedHour.value = hour
+  selectedMinute.value = minute
   selectedMeridian.value = time[3].toString().toUpperCase()
 
   generatedTime.value = value
@@ -60,6 +90,7 @@ function setPropsToData(value) {
 
 function generateTime() {
   let generated = ''
+
   if (selectedHour.value && selectedMinute.value && selectedMeridian.value) {
     generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
   }
@@ -91,6 +122,7 @@ function showPicker() {
 function hidePicker() {
   showField.value = false
 }
+
 </script>
 
 <template>
@@ -105,16 +137,11 @@ function hidePicker() {
            :value="generatedTime">
     <div ref="timepickerOptions" class="vue3-time-picker" :class="popupClasses" v-show="showField">
       <select class="vue3-time-picker__select" v-model="selectedHour" @change="onChangeTime">
-        <option :value="hour.toString().padStart(2, '0')" v-for="hour in 12">{{
-            hour.toString().padStart(2, "0")
-          }}
-        </option>
+        <option :value="hour" v-for="hour in hourOptions">{{ hour }}</option>
       </select>
       :
       <select class="vue3-time-picker__select" v-model="selectedMinute" @change="onChangeTime">
-        <option :value="(minute - 1).toString().padStart(2, '0')" v-for="minute in 60">
-          {{ (minute - 1).toString().padStart(2, "0") }}
-        </option>
+        <option :value="minute" v-for="minute in minuteOptions">{{ minute }}</option>
       </select>
       <select class="vue3-time-picker__select"
               @change="onChangeTime"

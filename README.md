@@ -46,10 +46,12 @@ Press backspace or delete to clear the input
 
 ### Available Props
 
-| Prop         | Type           | Description                   |
-|--------------|----------------|-------------------------------|
-| classes      | Object / Array | Add class to the input field  |
-| popupClasses | Object / Array | Add class to the option popup |
+| Prop Name        | Type           | Default | Description                   |
+|------------------|----------------|:-------:|-------------------------------|
+| classes          | Object / Array |         | Add class to the input field  |
+| popupClasses     | Object / Array |         | Add class to the option popup |
+| hourIncrements   | Number         |    1    | Increment the hour options    |        
+| minuteIncrements | Number         |    1    | Increment the minute options  |        
 
 
 ## Donations

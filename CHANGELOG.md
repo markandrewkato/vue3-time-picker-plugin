@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-06-08
+
+### Added
+
+- Option to increment hours and minutes with a certain value
+
 ## [1.0.12] - 2023-06-08
 
 ### Fixed
@@ -48,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add "Inspired by" on README
 
-[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.12...HEAD
+[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.12...v1.1.0
 [1.0.12]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.11...v1.0.12
 [1.0.11]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.10...v1.0.11
 [1.0.10]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.9...v1.0.10
