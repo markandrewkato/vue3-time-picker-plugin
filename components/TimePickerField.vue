@@ -47,7 +47,8 @@ onUnmounted(() => {
 function setPropsToData(value) {
   let time = parseTime(value)
   if (!time) {
-    return ''
+    generatedTime.value = ''
+    return;
   }
 
   selectedHour.value = time[1].toString().padStart(2, "0")
