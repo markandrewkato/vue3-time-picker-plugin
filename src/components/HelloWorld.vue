@@ -12,6 +12,6 @@ let time = ref('8:00 AM')
 
 <style>
 .narrow {
-  width: 100px;
+  width: 80px;
 }
 </style>
