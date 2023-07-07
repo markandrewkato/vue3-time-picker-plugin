@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2023-07-07
+
+### Fixed
+
+- Controls moving down when input width is narrow
+
 ## [1.1.0] - 2023-06-08
 
 ### Added
@@ -54,7 +60,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add "Inspired by" on README
 
-[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.1.0...HEAD
+[unreleased]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.12...v1.1.0
 [1.0.12]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.11...v1.0.12
 [1.0.11]: https://github.com/markandrewkato/vue3-time-picker-plugin/compare/v1.0.10...v1.0.11
