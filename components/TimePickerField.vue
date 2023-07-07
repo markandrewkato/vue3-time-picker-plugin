@@ -161,6 +161,7 @@ function hidePicker() {
 
 .vue3-time-picker {
   position: absolute;
+  min-width: 136px;
   z-index: 99999;
   left: 0;
   display: block;
