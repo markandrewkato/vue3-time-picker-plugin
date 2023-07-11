@@ -46,12 +46,14 @@ Press backspace or delete to clear the input
 
 ### Available Props
 
-| Prop Name        | Type           | Default | Description                   |
-|------------------|----------------|:-------:|-------------------------------|
-| classes          | Object / Array |         | Add class to the input field  |
-| popupClasses     | Object / Array |         | Add class to the option popup |
-| hourIncrements   | Number         |    1    | Increment the hour options    |        
-| minuteIncrements | Number         |    1    | Increment the minute options  |        
+| Prop Name         | Type           | Default | Description                          |
+|-------------------|----------------|:-------:|--------------------------------------|
+| classes           | Object / Array |         | Add class to the input field         |
+| popupClasses      | Object / Array |         | Add class to the option popup        |
+| hourIncrements    | Number         |    1    | Increment the hour options           |        
+| minuteIncrements  | Number         |    1    | Increment the minute options         |
+| disableMinutes    | Boolean        |  false  | Remove minutes value (eg. 8AM)       |
+| removeHourPadding | Boolean        |  false  | Remove the leading 0 from hour value |
 
 
 ## Donations
