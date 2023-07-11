@@ -77,6 +77,10 @@ watch(() => props.modelValue, (newValue) => {
 })
 
 onMounted(() => {
+  if (props.removeHourPadding) {
+    selectedHour.value = '1'
+  }
+
   setPropsToData(props.modelValue)
 
   handleOutsideClick = (e) => {
@@ -111,7 +115,6 @@ function setPropsToData(value) {
   let time = parseTime(value)
   if (!time) {
     generatedTime.value = ''
-    console.log('Invalid time entered')
     return
   }
 
@@ -142,7 +145,6 @@ function processMeridianOnly(value) {
   let time = parseMeridianOnly(value)
   if (!time) {
     generatedTime.value = ''
-    console.log('Invalid time entered')
     return
   }
 

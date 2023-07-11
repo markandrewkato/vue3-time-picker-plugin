@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-let time = ref('8AM')
+let time = ref(null)
 </script>
 
 <template>
