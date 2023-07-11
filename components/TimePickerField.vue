@@ -1,9 +1,36 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from "vue"
+import {computed, onMounted, onUnmounted, ref, watch} from "vue"
 
 let handleOutsideClick
 
-const props = defineProps(['modelValue', 'classes', 'popupClasses', 'hourIncrements', 'minuteIncrements'])
+const props = defineProps({
+  modelValue: String,
+  classes: {
+    type: String,
+    required: false
+  },
+  popupClasses: {
+    type: String,
+    required: false
+  },
+  hourIncrements: {
+    type: Number,
+    default: 1
+  },
+  minuteIncrements: {
+    type: Number,
+    default: 1,
+  },
+  disableMinutes: {
+    type: Boolean,
+    default: false
+  },
+  removeHourPadding: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const emit = defineEmits(['update:modelValue'])
 
 let showField = ref(false)
@@ -16,7 +43,7 @@ let selectedMeridian = ref('AM')
 let generatedTime = ref('')
 
 const minuteOptions = computed(() => {
-  let increments = props.minuteIncrements ?? 1;
+  let increments = props.minuteIncrements;
   let minutes = []
   for (let i = 0; i < 60; i++) {
     if (i % increments === 0) {
@@ -27,12 +54,20 @@ const minuteOptions = computed(() => {
 })
 
 const hourOptions = computed(() => {
-  let increments = props.hourIncrements ?? 1;
+  let increments = props.hourIncrements;
   let hours = []
   for (let i = 1; i <= 12; i++) {
+    let render = ''
     if (i % increments === 0) {
-      hours.push(i.toString().padStart(2, '0'))
+      render = i.toString()
+
+      if (!props.removeHourPadding) {
+        render = render.padStart(2, '0')
+      }
+
+      hours.push(render)
     }
+
   }
   return hours
 })
@@ -67,13 +102,26 @@ onUnmounted(() => {
 })
 
 function setPropsToData(value) {
+  // validate if valid time
+  if (props.disableMinutes) {
+    processMeridianOnly(value)
+    return;
+  }
+
   let time = parseTime(value)
   if (!time) {
     generatedTime.value = ''
+    console.log('Invalid time entered')
     return
   }
 
-  let hour = time[1].toString().padStart(2, "0");
+  let hour = time[1].toString();
+  if (!props.removeHourPadding) {
+    hour = hour.padStart(2, "0");
+  } else {
+    hour = hour.replace(/^0+/, '');
+  }
+
   let minute = time[2].toString().padStart(2, "0")
 
   if (!hourOptions.value.includes(hour) || !minuteOptions.value.includes(minute)) {
@@ -86,13 +134,46 @@ function setPropsToData(value) {
   selectedMeridian.value = time[3].toString().toUpperCase()
 
   generatedTime.value = value
+
+  // emit('update:modelValue', generatedTime.value)
+}
+
+function processMeridianOnly(value) {
+  let time = parseMeridianOnly(value)
+  if (!time) {
+    generatedTime.value = ''
+    console.log('Invalid time entered')
+    return
+  }
+
+  let hour = time[1].toString();
+  if (!props.removeHourPadding) {
+    hour = hour.padStart(2, "0");
+  } else {
+    hour = hour.replace(/^0+/, '');
+  }
+
+  if (!hourOptions.value.includes(hour)) {
+    generatedTime.value = ''
+    return
+  }
+
+  selectedHour.value = hour
+  selectedMeridian.value = time[2].toString().toUpperCase()
+
+  generatedTime.value = value
+  // emit('update:modelValue', generatedTime.value)
 }
 
 function generateTime() {
   let generated = ''
 
   if (selectedHour.value && selectedMinute.value && selectedMeridian.value) {
-    generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
+    if (props.disableMinutes) {
+      generated = `${selectedHour.value}${selectedMeridian.value}`
+    } else {
+      generated = `${selectedHour.value}:${selectedMinute.value} ${selectedMeridian.value}`
+    }
   }
 
   return generated
@@ -113,6 +194,11 @@ function clearInput(e) {
 function parseTime(t) {
   if (!t) return null
   return t.match(/(1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm])/);
+}
+
+function parseMeridianOnly(t) {
+  if (!t) return null
+  return t.match(/(1[0-2]|0?[1-9])([AaPp][Mm])/);
 }
 
 function showPicker() {
@@ -139,10 +225,12 @@ function hidePicker() {
       <select class="vue3-time-picker__select" v-model="selectedHour" @change="onChangeTime">
         <option :value="hour" v-for="hour in hourOptions">{{ hour }}</option>
       </select>
-      :
-      <select class="vue3-time-picker__select" v-model="selectedMinute" @change="onChangeTime">
-        <option :value="minute" v-for="minute in minuteOptions">{{ minute }}</option>
-      </select>
+      <template v-if="!disableMinutes">
+        :
+        <select class="vue3-time-picker__select" v-model="selectedMinute" @change="onChangeTime">
+          <option :value="minute" v-for="minute in minuteOptions">{{ minute }}</option>
+        </select>
+      </template>
       <select class="vue3-time-picker__select"
               @change="onChangeTime"
               v-model="selectedMeridian">

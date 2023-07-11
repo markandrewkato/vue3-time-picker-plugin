@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 
-let time = ref('8:00 AM')
+let time = ref('8AM')
 </script>
 
 <template>
   <h1>{{ time }}</h1>
 
-  <Vue3TimePicker v-model="time" classes="narrow" />
+  <Vue3TimePicker v-model="time" classes="narrow" :disable-minutes="true" :remove-hour-padding="true" />
 </template>
 
 <style>
