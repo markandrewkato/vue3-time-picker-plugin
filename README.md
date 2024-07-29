@@ -60,8 +60,9 @@ Press backspace or delete to clear the input
 
 If it has saved you development time, you can buy me a cup of coffee. :)
 
-[![Buy me a Coffee](https://raw.githubusercontent.com/markandrewkato/vue3-time-picker-plugin/main/bmc_qr.png)](https://www.buymeacoffee.com/mackth)
-
+<a href="https://www.buymeacoffee.com/mackth">
+  <img src="https://raw.githubusercontent.com/markandrewkato/vue3-time-picker-plugin/main/bmc_qr.png" alt="Buy Me a Coffee" style="width:200px;height:auto;">
+</a>
 
 ## Inspired by
 
