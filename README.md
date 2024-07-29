@@ -60,7 +60,7 @@ Press backspace or delete to clear the input
 
 If it has saved you development time, you can buy me a cup of coffee. :)
 
-[![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?business=TLMQT3BQAYJQW&no_recurring=0&currency_code=USD)
+[![Buy me a Coffee](https://raw.githubusercontent.com/markandrewkato/vue3-time-picker-plugin/main/bmc_qr.png)](https://www.buymeacoffee.com/mackth)
 
 
 ## Inspired by
